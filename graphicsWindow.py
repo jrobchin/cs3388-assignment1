@@ -28,28 +28,28 @@ class graphicsWindow:
         """
         Pseudo code:
         begin
-            plot (x1, y1);
+            plot (x1, y1)
             for (i= x1 to x2 by step of 1) {
                 if (i== x1 ) {
-                    pi=2Δy−Δx;
+                    pi=2Δy−Δx
                 }
                 else {
                     if ( pi<0 ) {
-                        pi= pi+2 Δ y;
+                        pi= pi+2 Δ y
                     }
                     else {
-                        pi= pi+2 Δ y−2Δ x;
-                        y1++;
+                        pi= pi+2 Δ y−2Δ x
+                        y1++
                     }
-                    x1++;
-                    plot (x1, y1);
+                    x1++
+                    plot (x1, y1)
                 }
             }
         end
         """
         def plot(x, y, c=color):
             self.drawPixel((x, y), c)
-        
+
         x1, y1 = p1
         x2, y2 = p2
         dx = x2 - x1
@@ -58,44 +58,114 @@ class graphicsWindow:
             m = dy / dx
         except ZeroDivisionError:
             m = None
-
+        
         if m is not None:
             if x1 < x2 and y1 < y2 and 0 <= m and m <= 1: # 1st octant
                 c = (255, 0, 0)
                 plot(x1, y1, c)
-                for i in range(x1, x2): # TODO: check that +1 is necessary
-                    if i == x1:
-                        pi = 2 * dy - dx
+                pi = 2 * dy - dx
+                for i in range(abs(dx)):
+                    if pi < 0:
+                        pi = pi + 2 * dy
                     else:
-                        if pi < 0:
-                            pi = pi + 2 * dy
-                        else:
-                            pi= pi + 2 * dy - 2 * dx;
-                            y1 += 1
-                        x1 += 1
-                        plot(x1, y1, c)
-            elif x1 < x2 and y1 < y2 and 1 < m and m < math.inf: # 2nd octant
-                c = (255, 127, 0)
-                plot(x1, y1, c)
-                for i in range(x1, x2): # TODO: check that +1 is necessary
-                    if i == x1:
-                        pi = 2 * dy - dx
-                    else:
-                        if pi < 0:
-                            pi = pi + 2 * dy
-                        else:
-                            pi= pi + 2 * dy - 2 * dx;
-                            x1 += 1
+                        pi = pi + 2 * dy - 2 * dx
                         y1 += 1
-                        plot(x1, y1, c)
+                    x1 += 1
+                    plot(x1, y1, c)
+            elif x1 < x2 and y1 < y2 and 1 < m and m < math.inf: # 2nd octant
+                c = (0, 255, 0)
+                plot(x1, y1, c)
+                pi = 2 * dx - dy
+                for i in range(abs(dy)):
+                    if pi < 0:
+                        pi = pi + 2 * dx
+                    else:
+                        pi = pi + 2 * dx - 2 * dy
+                        x1 += 1
+                    y1 += 1
+                    plot(x1, y1, c)
+            elif x1 > x2 and y1 < y2 and -1 > m and m > -math.inf: # 3rd octant
+                c = (0, 0, 255)
+                plot(x1, y1, c)
+                pi = 2 * -dx - dy
+                for i in range(abs(dy)):
+                    if pi < 0:
+                        pi = pi + 2 * -dx
+                    else:
+                        pi = pi + 2 * -dx - 2 * dy
+                        x1 -= 1
+                    y1 += 1
+                    plot(x1, y1, c)
+            elif x1 > x2 and y1 < y2 and 0 >= m and m >= -1: # 4th octant
+                c = (255, 255, 0)
+                plot(x1, y1, c)
+                pi = 2 * dy - -dx
+                for i in range(abs(dx)):
+                    if pi < 0:
+                        pi = pi + 2 * dy
+                    else:
+                        pi = pi + 2 * dy - 2 * -dx
+                        y1 += 1
+                    x1 -= 1
+                    plot(x1, y1, c)
+            elif x1 > x2 and y1 > y2 and 0 < m and m <= 1: # 5th octant
+                c = (65, 0, 165)
+                plot(x1, y1, c)
+                pi = 2 * -dy - -dx
+                for i in range(abs(dx)):
+                    if pi < 0:
+                        pi = pi + 2 * -dy
+                    else:
+                        pi = pi + 2 * -dy - 2 * -dx
+                        y1 -= 1
+                    x1 -= 1
+                    plot(x1, y1, c)
+            elif x1 > x2 and y1 > y2 and 1 < m and m < math.inf: # 6th octant
+                # TODO: check if this is correct
+                c = (255, 165, 255)
+                plot(x1, y1, c)
+                pi = 2 * -dx - -dy
+                for i in range(abs(-dy)):
+                    if pi < 0:
+                        pi = pi + 2 * -dx
+                    else:
+                        pi = pi + 2 * -dx - 2 * -dy
+                        x1 -= 1
+                    y1 -= 1
+                    plot(x1, y1, c)
+            elif x1 < x2 and y1 > y2 and -1 > m and m > -math.inf: # 7th octant
+                # TODO: check if this is correct
+                c = (255, 165, 65)
+                plot(x1, y1, c)
+                pi = 2 * dx - -dy
+                for i in range(abs(-dy)):
+                    if pi < 0:
+                        pi = pi + 2 * dx
+                    else:
+                        pi = pi + 2 * dx - 2 * -dy
+                        x1 += 1
+                    y1 -= 1
+                    plot(x1, y1, c)
+            elif x1 < x2 and y1 > y2 and 0 > m and m >= -1: # 8th octant
+                c = (0, 255, 255)
+                plot(x1, y1, c)
+                pi = 2 * -dy - dx
+                for i in range(abs(dx)):
+                    if pi < 0:
+                        pi = pi + 2 * -dy
+                    else:
+                        pi = pi + 2 * -dy - 2 * dx
+                        y1 -= 1
+                    x1 += 1
+                    plot(x1, y1, c)
             else:
-                # print(f"line {p1} to {p2} with slope {m} not drawn")
+                x = min(x1, x2)
+                for i in range(abs(dx)):
+                    plot(x+i, y1, (128, 0, 128))
                 pass
         elif dx == 0: # vertical line
-            # print(f"line {p1} to {p2} vertical line")
-            pass
-            for y in range(y1, y2+1):
-                plot(x1, y, (128, 0, 128))
+            y = min(y1, y2)
+            for i in range(abs(dy)):
+                plot(x1, y+i, (128, 0, 128))
         else:
-            # print(f"line {p1} to {p2} with undefined slope not drawn")
-            pass
+            raise Exception(f"{p1} to {p2} not drawn")
