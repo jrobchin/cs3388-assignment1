@@ -1,10 +1,12 @@
+import logging
+
 from math import *
 from graphicsWindow import graphicsWindow
 
 window = graphicsWindow(512,512)
 
 t = 0.0
-dt = 2.0*pi/600.0
+dt = 2.0*pi/200.0
 color = (255,255,255)
 
 while t < 2.0*pi:

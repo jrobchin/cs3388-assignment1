@@ -10,7 +10,7 @@
             "request": "launch",
             // "program": "${file}",
             "program": "CS3388-Assign1-Test-Program.py",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
         }
     ]
 }
