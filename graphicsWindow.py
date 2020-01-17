@@ -6,7 +6,6 @@ from PIL import Image
 
 class graphicsWindow:
 
-    sign = lambda _, x: x and (1, -1)[x<0]
 
     def __init__(self,width=640,height=480):
         self.__mode = 'RGB'
@@ -28,9 +27,11 @@ class graphicsWindow:
         self.__canvas.save(fileName)
     
     def drawLine(self,p1,p2,color):
+        sign = lambda x: x and (1, -1)[x<0]
+        
         x1, y1, x2, y2 = *p1, *p2
         dx, dy = abs(x2 - x1), abs(y2 - y1)
-        sX, sY = self.sign(x2 - x1), self.sign(y2 - y1)
+        sX, sY = sign(x2 - x1), sign(y2 - y1)
 
         if dx >= dy:
             x, xi, y, yi, d1, d2 = x1, sX, y1, sY, dy, dx
