@@ -1,4 +1,5 @@
 import logging
+from random import randint
 
 from math import *
 from graphicsWindow import graphicsWindow
