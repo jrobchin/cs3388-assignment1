@@ -1,3 +1,10 @@
+"""
+CS3388 Assignment 1
+
+by Jason Chin
+250920898
+"""
+
 import math
 import random
 
